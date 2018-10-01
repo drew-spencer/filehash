@@ -53,6 +53,6 @@ func main() {
 		fileHash := hashFile(path)
 		fmt.Println(fileHash)
 	} else {
-        printUseage()
+		printUseage()
 	}
 }
