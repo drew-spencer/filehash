@@ -46,5 +46,6 @@ func main() {
 		fmt.Println(fileHash)
 	} else {
 		fmt.Println("Incorrect Usage")
+        fmt.Println("Usage: ./filehash file [checksum]")
 	}
 }
