@@ -28,11 +28,16 @@ func hashFile(path string) string {
 	return fmt.Sprintf("%x", hash.Sum(nil))
 }
 
-func compHash(fileHash, argHash string) {
-    if fileHash == argHash{
-        fmt.Println("The file and checksum match!")
+func printUseage() {
+    fmt.Println("Incorrect Usage")
+    fmt.Println("Usage: ./filehash file [checksum]")
+}
+
+func compHash(h1, h2 string) {
+    if h1 == h2{
+        fmt.Println("Checksums match!")
     } else {
-        fmt.Println("The file and checksum DO NOT match!")
+        fmt.Println("Checksums DO NOT match!")
     }
 }
 
@@ -48,7 +53,6 @@ func main() {
 		fileHash := hashFile(path)
 		fmt.Println(fileHash)
 	} else {
-		fmt.Println("Incorrect Usage")
-        fmt.Println("Usage: ./filehash file [checksum]")
+		printUseage()
 	}
 }
