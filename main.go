@@ -33,8 +33,8 @@ func printUseage() {
     fmt.Println("Usage: ./filehash file [checksum]")
 }
 
-func compHash(fileHash, argHash string) {
-    if fileHash == argHash{
+func compHash(h1, h2 string) {
+    if h1 == h2{
         fmt.Println("Checksums match!")
     } else {
         fmt.Println("Checksums DO NOT match!")
