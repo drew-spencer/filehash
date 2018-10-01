@@ -28,8 +28,12 @@ func hashFile(path string) string {
 	return fmt.Sprintf("%x", hash.Sum(nil))
 }
 
-func compHash(fileHash, argHash string) bool {
-	return fileHash == argHash
+func compHash(fileHash, argHash string) {
+    if fileHash == argHash{
+        fmt.Println("The file and checksum match!")
+    } else {
+        fmt.Println("The file and checksum DO NOT match!")
+    }
 }
 
 func main() {
@@ -38,8 +42,7 @@ func main() {
 		argHash := strings.ToLower(os.Args[2])
 
 		fileHash := hashFile(path)
-		res := compHash(fileHash, argHash)
-		fmt.Println(res)
+		compHash(fileHash, argHash)
 	} else if len(os.Args) == 2 {
 		path := os.Args[1]
 		fileHash := hashFile(path)
