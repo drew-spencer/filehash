@@ -13,9 +13,20 @@ import (
 	"strings"
 )
 
+func checkFile(path string) {
+    file, err := os.Open(path)
+    sErr := fmt.Sprintf("%x", err)
+    
+    if strings.Contains(sErr, "no such file or directory") {
+        fmt.Println("No file")
+    }
+    defer file.Close()
+}
+
 func hashFile(path string) string {
 	file, err := os.Open(path)
-	if err != nil {
+    if err != nil {
+        fmt.Println(err)
 		log.Fatal(err)
 	}
 	defer file.Close()
