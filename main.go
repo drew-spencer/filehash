@@ -19,6 +19,8 @@ func checkFile(path string) {
     
     if strings.Contains(sErr, "no such file or directory") {
         fmt.Println("No file")
+    } else if err != nil {
+        log.Fatal(err)
     }
     defer file.Close()
 }
@@ -26,7 +28,6 @@ func checkFile(path string) {
 func hashFile(path string) string {
 	file, err := os.Open(path)
     if err != nil {
-        fmt.Println(err)
 		log.Fatal(err)
 	}
 	defer file.Close()
