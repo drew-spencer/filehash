@@ -13,16 +13,18 @@ import (
 	"strings"
 )
 
-func checkFile(path string) {
+func checkFile(path string) bool {
     file, err := os.Open(path)
     sErr := fmt.Sprintf("%x", err)
+    fmt.Println(sErr)
     
     if strings.Contains(sErr, "no such file or directory") {
-        fmt.Println("No file")
+        return false
     } else if err != nil {
         log.Fatal(err)
     }
     defer file.Close()
+    return true
 }
 
 func hashFile(path string) string {
@@ -54,13 +56,23 @@ func compHash(h1, h2 string) {
 }
 
 func main() {
-	if len(os.Args) == 3 {
-		path := os.Args[1]
-		argHash := strings.ToLower(os.Args[2])
-
-		fileHash := hashFile(path)
-		compHash(fileHash, argHash)
-	} else if len(os.Args) == 2 {
+	if len(os.Args) == 3{
+        arg1 := os.Args[1]
+        arg2 := os.Args[2]
+        exArg1 := checkFile(arg1)
+        exArg2 := checkFile(arg2)
+        fmt.Println()
+        
+		if exArg1 && exArg2 {
+			compHash(hashFile(arg1), hashFile(arg2))
+		} else if exArg1 {
+			compHash(hashFile(arg1), arg2)
+		} else if exArg2 {
+			compHash(arg1, hashFile(arg2))
+		} else {
+			compHash(arg1, arg2)
+		}
+	} else if len(os.Args) == 2{
 		path := os.Args[1]
 		fileHash := hashFile(path)
 		fmt.Println(fileHash)
