@@ -13,13 +13,14 @@ import (
 func hashFile(path string) string {
 	file, err := os.Open(path)
     if err != nil {
-		log.Fatal(err)
+		fmt.Printf("Unable to find the file \"%s\". Please try again.\n", path)
+		os.Exit(1)
 	}
 	defer file.Close()
 
 	hash := sha256.New()
 	if _, err := io.Copy(hash, file); err != nil {
-		log.Fatal()
+		log.Fatal(err)
 	}
 
 	return fmt.Sprintf("%x", hash.Sum(nil))
