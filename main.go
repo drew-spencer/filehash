@@ -38,12 +38,20 @@ func compHash(h1, h2 string) {
         fmt.Println("Checksums DO NOT match!")
     }
 }
+
 func printHelp() {
 	fmt.Println("Generate a sha256 checksum for a specified file or compare a file against another checksum.")
 	fmt.Println("Usage: filehash file_name [checksum]")
 	fmt.Println("The first file_name parameter is required.")
 	fmt.Println("You may optionally add a sha256 checksum to compare against as second parameter.")
 }
+
+func compFiles(file1, file2 string){
+	hash1 := hashFile(file1)
+	hash2 := hashFile(file2)
+	compHash(hash1, hash2)
+}
+
 func main() {
 	if len(os.Args) == 3 {
 		path := os.Args[1]
