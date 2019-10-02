@@ -1,0 +1,1 @@
+A simple application, that compares a file to a checksum, that I made for personal use.
