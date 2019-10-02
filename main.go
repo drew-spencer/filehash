@@ -1,8 +1,5 @@
 package main
 
-/*		 TODO
-handel md5, sha1, sha256, sha512
-*/
 
 import (
 	"crypto/sha256"
@@ -12,18 +9,6 @@ import (
 	"os"
 	"strings"
 )
-
-func checkFile(path string) {
-    file, err := os.Open(path)
-    sErr := fmt.Sprintf("%x", err)
-    
-    if strings.Contains(sErr, "no such file or directory") {
-        fmt.Println("No file")
-    } else if err != nil {
-        log.Fatal(err)
-    }
-    defer file.Close()
-}
 
 func hashFile(path string) string {
 	file, err := os.Open(path)
@@ -42,7 +27,7 @@ func hashFile(path string) string {
 
 func printUseage() {
     fmt.Println("Incorrect Usage")
-    fmt.Println("Usage: ./filehash file [checksum]")
+	fmt.Println("Run \"filehash help\" for more info")
 }
 
 func compHash(h1, h2 string) {
@@ -52,7 +37,12 @@ func compHash(h1, h2 string) {
         fmt.Println("Checksums DO NOT match!")
     }
 }
-
+func printHelp() {
+	fmt.Println("Generate a sha256 checksum for a specified file or compare a file against another checksum.")
+	fmt.Println("Usage: filehash file_name [checksum]")
+	fmt.Println("The first file_name parameter is required.")
+	fmt.Println("You may optionally add a sha256 checksum to compare against as second parameter.")
+}
 func main() {
 	if len(os.Args) == 3 {
 		path := os.Args[1]
@@ -61,9 +51,14 @@ func main() {
 		fileHash := hashFile(path)
 		compHash(fileHash, argHash)
 	} else if len(os.Args) == 2 {
+
+		if strings.ToLower(os.Args[1]) == "help"{
+			printHelp()
+		} else {
 		path := os.Args[1]
 		fileHash := hashFile(path)
 		fmt.Println(fileHash)
+		}
 	} else {
 		printUseage()
 	}
